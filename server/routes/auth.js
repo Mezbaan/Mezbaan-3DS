@@ -6,6 +6,13 @@ const Auth = require("../controllers/auth");
 router.post("/users", Auth.signup);
 router.post("/auth", Auth.signin);
 
+router.get("/profile/:id", Auth.authMiddleware, function(req, res) {
+  User.findOne({userId:req.params.id}).
+    exec(function(err, foundProfile) {
+      res.json(foundProfile);
+  });
+});
+
 router.get("/test", Auth.authMiddleware, function(req, res) {
   res.json({ok: "ok"});
 });

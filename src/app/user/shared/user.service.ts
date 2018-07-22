@@ -13,6 +13,8 @@ export interface LoginData {
 export class UserService {
   private username: string;
   private token: string;
+  private avatarUrl: string;
+  private userId: string;
 
   constructor(private http: HttpClient) {}
 
@@ -25,7 +27,6 @@ export class UserService {
     if (token) {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace('-', '+').replace('_', '/');
-
       return JSON.parse(window.atob(base64));
     }
 
@@ -60,6 +61,8 @@ export class UserService {
     localStorage.removeItem('bwm_auth');
     this.token = '';
     this.username = '';
+    this.avatarUrl= '';
+    this.userId = '';
 
     return new Observable(observer => {
       if (!!localStorage.getItem('bwm_auth')) {
@@ -74,6 +77,18 @@ export class UserService {
     if (this.username) return this.username;
 
     return this.username = this.parseJwt(this.getToken()).username;
+  }
+
+  public getId(): string {
+    if (this.userId) return this.userId;
+
+    return this.userId = this.parseJwt(this.getToken()).userId;
+  }
+
+  public getUseravatar(): string {
+    if (this.avatarUrl) return this.avatarUrl;
+
+    return this.avatarUrl = this.parseJwt(this.getToken()).avatarUrl;
   }
 
   public getAuthToken(): any {

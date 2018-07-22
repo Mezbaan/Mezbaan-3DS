@@ -62,7 +62,7 @@ exports.signin = function(req, res, next) {
     if (!user) return res.status(422).send({errors: [{title: 'Invalid User', detail: "User doesnt exist"}] });
 
     if (user.isSamePassword(password)) {
-      return res.json({token: jwt.encode({userId: user.id, email: user.email, username: user.username}, config.SECRET), email: user.email})
+      return res.json({token: jwt.encode({userId: user.id, email: user.email, username: user.username, avatarUrl: user.avatarUrl}, config.SECRET), email: user.email})
     } else {
       return res.status(422).send({errors: [{title: 'Wrong Data', detail: "Wrong email or password"}] });
     }

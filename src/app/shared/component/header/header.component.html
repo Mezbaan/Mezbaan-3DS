@@ -8,24 +8,24 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav ml-auto">
-      <div *ngIf="auth.isAuthenticated()" class="nav-item dropdown">
+    <div class="navbar-nav" style="margin-left:40px;">
+      <ng-container *ngIf="auth.isAuthenticated()">
+        <a class="nav-item" (click)="profile()"><img style="height:82px;border-radius:10px;" src="{{auth.getUseravatar()}}"> Welcome {{auth.getUsername()}}</a>
+        
+      </ng-container>
+      <div style="padding-top:21px;padding-left:5px;" *ngIf="auth.isAuthenticated()" class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Owner Section
+          Meal Portal
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" routerLink="/rentals/new">Create Rental</a>
-          <a class="dropdown-item" routerLink="/manage/rentals">Manage Rentals</a>
-          <a class="dropdown-item" routerLink="/manage/bookings">Manage Bookings</a>
-          <a class="dropdown-item" routerLink="/venues/new">Create Venue</a>
-          <a class="dropdown-item" routerLink="/arrange/venues">Arrange Venues</a>
-          <a class="dropdown-item" routerLink="/arrange/reservations">Arrange Reservations</a>
+          <a class="dropdown-item" routerLink="/venues/new">Create A Venue</a>
+          <a class="dropdown-item" routerLink="/arrange/venues">My Venues</a>
+          <a class="dropdown-item" routerLink="/arrange/reservations">My Reservations</a>
         </div>
       </div>
-      <ng-container *ngIf="auth.isAuthenticated()">
-        <a class="nav-item nav-link"> Welcome {{auth.getUsername()}}</a>
-        <a class="nav-item nav-link clickable" (click)="logout()">Logout</a>
-      </ng-container>
+      <div style="padding-top:21px;padding-left:5px;" *ngIf="auth.isAuthenticated()" class="nav-item">
+      <a class="nav-item nav-link clickable" (click)="logout()">Logout</a>
+      </div>
       <ng-container *ngIf="!auth.isAuthenticated()">
         <a class="nav-item nav-link active clickable" routerLink="login">Login <span class="sr-only">(current)</span></a>
         <a class="nav-item nav-link clickable" routerLink="register">Register</a>

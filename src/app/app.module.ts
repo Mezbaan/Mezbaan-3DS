@@ -25,6 +25,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/interceptor/token.interceptor';
 
 import { DateFormatPipe } from './shared/pipe/date-format.pipe';
+import { ProfileComponent } from './profile-component/profile-component.component';
 
  const routes: Routes = [
    { path: '', redirectTo: '/venues', pathMatch: 'full' },
@@ -33,6 +34,7 @@ import { DateFormatPipe } from './shared/pipe/date-format.pipe';
    { path: 'manage', component: ManageComponent },
    { path: 'arrange', component: ArrangeComponent },
    { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+   { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard] },
    { path: 'register', component: RegisterComponent, canActivate: [AuthGuard]}
  ];
 
@@ -41,7 +43,8 @@ import { DateFormatPipe } from './shared/pipe/date-format.pipe';
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

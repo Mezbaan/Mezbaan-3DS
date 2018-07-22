@@ -18,6 +18,10 @@ export class HeaderComponent {
       })
   }
 
+  public profile(): void {
+    this.router.navigate([`profile/${this.auth.getId()}`], {skipLocationChange:true});
+  }
+
   public search(city: string): void {
     city ? this.router.navigate([`rentals/${city}/homes`]) : this.router.navigate(['rentals'])
   }
