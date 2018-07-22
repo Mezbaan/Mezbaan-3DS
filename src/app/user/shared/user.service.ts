@@ -57,6 +57,11 @@ export class UserService {
     return !!localStorage.getItem('bwm_auth');
   }
 
+  public getProfile(id: string): Observable<any> {
+    let url='/api/v1/profile/' + id;
+    return this.http.get(url);
+  }
+
   public logout(): Observable<any> {
     localStorage.removeItem('bwm_auth');
     this.token = '';
@@ -83,6 +88,12 @@ export class UserService {
     if (this.userId) return this.userId;
 
     return this.userId = this.parseJwt(this.getToken()).userId;
+  }
+
+  public getThree(): {} {
+    if (this.userId) return {userId: this.userId, username: this.username, avatarUrl: this.avatarUrl};
+
+    return {userId: this.parseJwt(this.getToken()).userId, username: this.parseJwt(this.getToken()).username, avatarUrl: this.parseJwt(this.getToken()).avatarUrl};
   }
 
   public getUseravatar(): string {

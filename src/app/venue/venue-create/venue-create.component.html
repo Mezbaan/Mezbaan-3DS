@@ -17,7 +17,7 @@
           <div class="form-group">
             <label for="dietaryCategory">Dietary Category</label>
 
-            <select class="form-control" id="dietaryCategories" name="dietaryCategory" [(ngModel)]="newVenue.dietaryCategory">
+            <select class="form-control" id="dietaryCategory" name="dietaryCategory" [(ngModel)]="newVenue.dietaryCategory">
               <option *ngFor="let category of venueCategories" [ngValue]="category">{{category}}</option>
             </select>
           </div>

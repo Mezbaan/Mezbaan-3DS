@@ -7,8 +7,10 @@ router.post("/users", Auth.signup);
 router.post("/auth", Auth.signin);
 
 router.get("/profile/:id", Auth.authMiddleware, function(req, res) {
-  User.findOne({userId:req.params.id}).
+	console.log('req.params.id: ',req.params.id);
+  User.findOne({_id:req.params.id}).
     exec(function(err, foundProfile) {
+    	console.log('foundProfile:',foundProfile);
       res.json(foundProfile);
   });
 });

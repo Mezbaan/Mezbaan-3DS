@@ -5,7 +5,7 @@
     <label>Date</label>
       <input type="text" class="form-control daterangepicker-input" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event, daterange)"
        />
-    <button [disabled]="!newBooking.date" class="btn btn-bwm btn-confirm btn-block" (click)="openModal(reservationModal)">Reserve place now</button>
+    <button class="btn btn-bwm btn-confirm btn-block" (click)="openModal(reservationModal)">Reserve place now</button>
     <hr>
   </ng-container>
   <div *ngIf="!auth.isAuthenticated()" class="should-login-btn-container">
@@ -21,7 +21,7 @@
 <!-- MODAL -->
 <ng-template #reservationModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title title">Confirm Reservation <p>{{newBooking.date}}</p></h4>
+    <h4 class="modal-title title">Confirm Reservation <p></p></h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
