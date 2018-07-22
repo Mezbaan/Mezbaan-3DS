@@ -6,14 +6,14 @@ const rentalShema = new Schema({
   city: {type: String, lowercase: true, required: true},
   street: {type: String, required: true},
   category: {type: String, lowercase: true},
-  image: {type: String, required: true},
+  image: {type: String},
   bedrooms: Number,
   description: {type: String, required: true},
   dailyRate: Number,
   shared: Boolean,
   createdAt: {type: Date, default: Date.now},
   user: {type: Schema.Types.ObjectId, ref: 'User'},
-  bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }]
+  reservations: [{ type: Schema.Types.ObjectId, ref: 'Reservation' }]
 });
 
 module.exports = mongoose.model("Rental", rentalShema);
