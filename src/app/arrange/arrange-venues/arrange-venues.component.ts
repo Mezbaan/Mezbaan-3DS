@@ -23,7 +23,7 @@ export class ArrangeVenuesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.rentalService.getCurrentUserRentals().subscribe((venues: Venue[]) => {
+    this.venueService.getCurrentUserVenues().subscribe((venues: Venue[]) => {
       this.venues = venues;
     }, (errorsResponse: HttpErrorResponse) => {
       this.errors = errorsResponse.error.errors;
@@ -31,8 +31,8 @@ export class ArrangeVenuesComponent implements OnInit {
   }
 
   removeVenueFromView(venueId: string) {
-    const index = this.venues.findIndex(venue => venue._id == rentalId);
-    this.venue.splice(index, 1);
+    const index = this.venues.findIndex(venue => venue._id == venueId);
+    this.venues.splice(index, 1);
   }
 
   goToUpdate(venueId): any {

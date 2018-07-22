@@ -10,7 +10,6 @@ const bookingShema = new Schema({
   createdAt: {type: Date, default: Date.now},
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   rental: { type: Schema.Types.ObjectId, ref: 'Rental' },
-  venue: { type: Schema.Types.ObjectId, ref: 'Venue' }
 });
 
 module.exports = mongoose.model("Booking", bookingShema);

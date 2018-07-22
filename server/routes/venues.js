@@ -29,8 +29,8 @@ router.post("", Auth.authMiddleware, function(req, res) {
   // const { title, city, street, category, image, bedrooms, description, dailyRate } = req.body;
   console.log('hitting venue post route');
   
-  const { name, address, placeid, dietarycategories, picture, seats, bio, individualRate } = req.body;
-  const venue = new Venue({name, address, placeid, dietarycategories, picture, seats, bio, individualRate});
+  const { name, address, placeid, dietarycategories, picture, seats, bio, individualRate, dayOfTheWeek } = req.body;
+  const venue = new Venue({name, address, placeid, dietarycategories, picture, seats, bio, individualRate, dayOfTheWeek});
   const user = res.locals.user;
   venue.user = user;
 

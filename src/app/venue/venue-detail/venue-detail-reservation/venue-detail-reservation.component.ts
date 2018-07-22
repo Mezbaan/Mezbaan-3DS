@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Venue } from '../../shared/venue.model';
-import { Booking } from '../../../booking/shared/booking.model';
+import { Reservation } from '../../../reservation/shared/reservation.model';
 import { HelperService } from '../../../shared/service/helper.service';
-import { BookingService } from '../../../booking/shared/booking.service';
+import { ReservationService } from '../../../reservation/shared/reservation.service';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DaterangePickerComponent } from 'ng2-daterangepicker';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -12,18 +12,18 @@ import * as moment from 'moment';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
-  selector: 'bwm-venue-detail-booking',
-  templateUrl: './venue-detail-booking.component.html',
-  styleUrls: ['venue-detail-booking.component.scss']
+  selector: 'bwm-venue-detail-reservation',
+  templateUrl: './venue-detail-reservation.component.html',
+  styleUrls: ['venue-detail-reservation.component.scss']
 })
-export class VenueDetailBookingComponent implements OnInit {
+export class VenueDetailReservationComponent implements OnInit {
   @Input() public venue: Venue;
   @ViewChild(DaterangePickerComponent)
   public picker: DaterangePickerComponent;
 
   public daterange: any = {};
   public takenDates: any = [];
-  public newBooking: Booking;
+  public newReservation: Reservation;
   public modalRef: any;
   public errors: any[];
 
@@ -37,7 +37,7 @@ export class VenueDetailBookingComponent implements OnInit {
 
   constructor(public helper: HelperService,
               public modalService: NgbModal,
-              public bookingService: BookingService,
+              public reservationService: ReservationService,
               public toastr: ToastsManager,
               public vcr: ViewContainerRef,
               public auth: UserService ) {
@@ -45,11 +45,11 @@ export class VenueDetailBookingComponent implements OnInit {
   }
 
   private computeTakenDates() {
-    const bookings: Booking[] = this.venue.bookings;
+    const reservations: Reservation[] = this.venue.reservations;
 
-    if (bookings && bookings.length) {
-      bookings.forEach(booking => {
-        this.fillTakenDates(booking.startAt, booking.endAt);
+    if (reservations && reservations.length) {
+      reservations.forEach(reservation => {
+        this.fillTakenDates(reservation.startAt, reservation.endAt);
       });
     }
     this.takenDates;
@@ -69,9 +69,9 @@ export class VenueDetailBookingComponent implements OnInit {
     return this.takenDates.includes(date.format('Y-MM-DD')) || date.diff(moment(), 'days', true) <= 0;
   }
 
-  private computeBookingValues() {
-    this.newBooking.days = this.helper.getRangeOfDates(this.newBooking.startAt, this.newBooking.endAt).length;
-    this.newBooking.totalPrice = this.venue.individualRate;
+  private computeReveravtionValues() {
+    this.newReveravtion.days = this.helper.getRangeOfDates(this.newReveravtion.startAt, this.newReservation.endAt).length;
+    this.newReservation.totalPrice = this.venue.individualRate;
   }
 
   private resetDatepicker() {
@@ -82,24 +82,24 @@ export class VenueDetailBookingComponent implements OnInit {
 
   public ngOnInit() {
     this.computeTakenDates();
-    this.newBooking = new Booking();
+    this.newReveravtion = new Reveravtion();
   }
 
   public selectedDate(value: any, datepicker?: any) {
-    this.newBooking.startAt = moment(value.start).format('Y-MM-DD');
-    this.newBooking.endAt = moment(value.end).format('Y-MM-DD');
-    this.computeBookingValues();
+    this.newReveravtion.startAt = moment(value.start).format('Y-MM-DD');
+    this.newReveravtion.endAt = moment(value.end).format('Y-MM-DD');
+    this.computeReveravtionValues();
     this.options.autoUpdateInput = true;
   }
 
-  public confirmBooking(bookingModal) {
-    this.newBooking.venue = this.venue;
+  public confirmReveravtion(reveravtionModal) {
+    this.newReveravtion.venue = this.venue;
 
-    this.bookingService.makeBooking(this.newBooking).subscribe(data => {
-      this.newBooking = new Booking();
+    this.reveravtionService.makeReveravtion(this.newReveravtion).subscribe(data => {
+      this.newReveravtion = new Reveravtion();
       this.fillTakenDates(data.startAt, data.endAt);
       this.resetDatepicker();
-      this.toastr.success('Booking succesfully created, you can check your booking details in manage section', 'Success!');
+      this.toastr.success('Reveravtion succesfully created, you can check your reveravtion details in arrange section', 'Success!');
       this.modalRef.close();
     }, (errorsResponse: HttpErrorResponse) => {
       this.errors = errorsResponse.error.errors;

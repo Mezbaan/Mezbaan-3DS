@@ -5,7 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ArrangeVenuesComponent } from './arrange-venues/arrange-venues.component';
 import { ArrangeReservationsComponent } from './arrange-reservations/arrange-reservations.component';
 import { ArrangeComponent } from './arrange.component';
-import { ArrangeVenuesReservationComponent } from './arrange-venues/arrange-venues-reservation/arrange-venues-registration.component';
+import { ArrangeVenuesReservationComponent } from './arrange-venues/arrange-venues-reservation/arrange-venues-reservation.component';
 
 import { VenueService } from '../venue/shared/venue.service';
 import { ReservationService } from '../reservation/shared/reservation.service';
@@ -32,7 +32,7 @@ const routes: Routes = [
     ArrangeComponent,
     ArrangeVenuesComponent,
     ArrangeVenuesReservationComponent,
-    ArrangeReservationComponent
+    ArrangeReservationsComponent
   ],
   providers: [VenueService, ReservationService]
 })

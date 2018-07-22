@@ -29,7 +29,7 @@ export class VenueService {
   }
 
   public getCurrentUserVenues(): Observable<any> {
-    return this.http.get('/api/v1/venues/manage');
+    return this.http.get('/api/v1/venues/arrange');
   }
 
   public updateVenue(id, venue): Observable<any> {

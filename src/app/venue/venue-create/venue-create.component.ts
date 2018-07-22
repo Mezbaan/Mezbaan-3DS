@@ -13,6 +13,7 @@ export class VenueCreateComponent implements OnInit {
   public newVenue: Venue;
   public errors: any = [];
   public venueCategories = Venue.CATEGORIES;
+  public venueDays = Venue.DAYS
 
   constructor(private venueService: VenueService,
               private router: Router) {}

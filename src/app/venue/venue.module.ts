@@ -11,11 +11,11 @@ import { VenueListComponent } from './venue-list/venue-list.component';
 import { VenueListDetailComponent } from './venue-list-detail/venue-list-detail.component';
 import { VenueSearchComponent } from './venue-search/venue-search.component';
 import { VenueDetailComponent } from './venue-detail/venue-detail.component';
-import { VenueDetailBookingComponent } from './venue-detail/venue-detail-booking/venue-detail-booking.component';
+import { VenueDetailReservationComponent } from './venue-detail/venue-detail-reservation/venue-detail-reservation.component';
 import { VenueCreateComponent } from './venue-create/venue-create.component';
 
 import { VenueService } from './shared/venue.service';
-import { BookingService } from '../booking/shared/booking.service';
+import { ReservationService } from '../reservation/shared/reservation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -56,12 +56,12 @@ const routes: Routes = [
     VenueListComponent,
     VenueListDetailComponent,
     VenueDetailComponent,
-    VenueDetailBookingComponent,
+    VenueDetailReservationComponent,
     VenueSearchComponent,
     VenueCreateComponent,
     VenueDetailUpdateComponent,
     VenueDetailInfoComponent
   ],
-  providers: [VenueService, BookingService]
+  providers: [VenueService, ReservationService]
 })
 export class VenueModule {}
