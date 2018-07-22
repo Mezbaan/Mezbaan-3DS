@@ -5,12 +5,15 @@ const express       = require("express"),
       config        = require("./config"),
       fakeDB        = require("./seed-db"),
       Rental        = require("./models/rental"),
+      Venue        = require("./models/venue"),
       path          = require("path");
 
 const rentalsRoutes = require("./routes/rentals"),
+      venuesRoutes = require("./routes/venues"),
       bookingRoutes = require("./routes/bookings"),
       authRoutes    = require("./routes/auth"),
       fileRoutes    = require("./routes/file-upload");
+
 
 const url = `mongodb://${config.DB_USER}:${config.DB_PASSWORD}@${config.DB_URI}`;
 
@@ -25,6 +28,7 @@ app.use(bodyParser.json()); // use od body parser to get values from get req
 app.use("/api/v1/", authRoutes);
 app.use("/api/v1/", fileRoutes);
 app.use("/api/v1/rentals", rentalsRoutes);
+app.use("/api/v1/venues", venuesRoutes);
 app.use("/api/v1/bookings", bookingRoutes);
 
 

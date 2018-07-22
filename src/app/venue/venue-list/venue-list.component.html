@@ -1,0 +1,8 @@
+<section id="venueListing">
+  <h1 class="page-title">Your Home All Around the World</h1>
+  <div class="row">
+    <div *ngFor="let venue of venues"  class='col-md-3 col-sm-6'>
+      <bwm-venue-list-detail [venue]="venue"></bwm-venue-list-detail>
+    </div>
+  </div>
+</section>

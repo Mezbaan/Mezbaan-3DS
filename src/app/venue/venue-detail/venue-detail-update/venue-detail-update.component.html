@@ -1,0 +1,100 @@
+<section id="venueDetails" *ngIf="venue">
+  <div class="upper-section">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="{{venue.image}}" alt="">
+      </div>
+      <div class="col-md-6">
+        <bwm-map [locationObservable]="locationChanged$" [location]="venue.city + ', ' + venue.street"></bwm-map>
+      </div>
+    </div>
+  </div>
+
+  <div class="details-section">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="venue">
+          <h2 class="venue-type {{venue.category}}">
+            <span>{{helper.venueType('Shared')}}</span>
+            <bwm-editable-select
+              [(entity)]="venue"
+              [field]="'shared'"
+              [style]="{'display': 'inline-block'}"
+              [options]="[true,false]"
+              (entityUpdated)="updateVenue(venue._id, $event)">
+            </bwm-editable-select>
+            <bwm-editable-select
+              [(entity)]="venue"
+              [field]="'category'"
+              [options]="['house', 'apartment', 'condo']"
+              (entityUpdated)="updateVenue(venue._id, $event)">
+            </bwm-editable-select>
+          </h2>
+          <div class="venue-owner">
+            <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="">
+            <span>{{venue.user.email}}</span>
+          </div>
+           <bwm-editable-input
+            [(entity)]="venue"
+            [field]="'title'"
+            [className]="'venue-title'"
+            (entityUpdated)="updateVenue(venue._id, $event)">
+          </bwm-editable-input>
+
+          <bwm-editable-input
+            [(entity)]="venue"
+            [field]="'city'"
+            [className]="'venue-city'"
+            (entityUpdated)="updateVenue(venue._id, $event)">
+          </bwm-editable-input>
+          <bwm-editable-input
+            [(entity)]="venue"
+            [field]="'street'"
+            [className]="'venue-street'"
+            (entityUpdated)="updateVenue(venue._id, $event)">
+          </bwm-editable-input>
+          <div class="venue-room-info">
+            <span><i class="fa fa-building"></i>
+              <bwm-editable-input
+              [(entity)]="venue"
+              [field]="'bedrooms'"
+              [className]="'venue-city'"
+              [type]="'number'"
+              [style]="{'display': 'inline-block'}"
+              (entityUpdated)="updateVenue(venue._id, $event)">
+              </bwm-editable-input>
+            bedrooms</span>
+
+            <span><i class="fa fa-user"></i> {{parseInt(venue.bedrooms) + 4}} guests</span>
+            <span><i class="fa fa-bed"></i> {{parseInt(venue.bedrooms) + 2}} beds</span>
+          </div>
+            <bwm-editable-text
+              [(entity)]="venue"
+              [field]="'description'"
+              [className]="'venue-description'"
+              (entityUpdated)="updateVenue(venue._id, $event)">
+            </bwm-editable-text>
+          <hr>
+          <div class="venue-assets">
+            <h3 class="title">Assets</h3>
+            <div class="row">
+              <div class="col-md-6">
+                <span><i class="fa fa-asterisk"></i> Cooling</span>
+                <span><i class="fa fa-thermometer"></i> Heating</span>
+                <span><i class="fa fa-location-arrow"></i> Iron</span>
+              </div>
+              <div class="col-md-6">
+                <span><i class="fa fa-desktop"></i> Working area</span>
+                <span><i class="fa fa-cube"></i> Washing machine</span>
+                <span><i class="fa fa-cube"></i> Dishwasher</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+      <bwm-venue-detail-booking [venue]=venue></bwm-venue-detail-booking>
+      </div>
+    </div>
+  </div>
+</section>
