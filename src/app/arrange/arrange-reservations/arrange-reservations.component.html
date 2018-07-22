@@ -5,13 +5,13 @@
       <div *ngFor="let reservation of reservations" class="col-md-4">
         <div class="card text-center">
           <div class="card-header">
-            {{reservation.venue.category}}
+            {{reservation.venue.dietaryCategory}}
           </div>
           <div class="card-block">
             <h4 class="card-title">{{reservation.venue.name}} - {{reservation.venue.address}}</h4>
             <p class="card-text reservation-bio">{{reservation.venue.bio}}</p>
             <p class="card-text reservation-date">{{reservation.date | formatDate}}</p>
-            <p class="card-text reservation-price"><span>Price: </span> <span class="booking-price-value">{{reservation.individualPrice}} $</span></p>
+            <p class="card-text reservation-price"><span>Price: </span> <span class="reservation-price-value">{{reservation.price}} $</span></p>
             <a class="btn btn-bwm" routerLink="/venues/{{reservation.venue._id}}">Go te Venue</a>
           </div>
           <div class="card-footer text-muted">

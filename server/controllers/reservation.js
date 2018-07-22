@@ -5,9 +5,9 @@ const {normalizeErrors} = require("../helpers/mongoose-helper");
 const moment = require('moment');
 
 exports.createReservation = function(req, res, next) {
-  const { date, individualRate, venueId, venue } = req.body;
+  const { date, price, venueId, venue } = req.body;
   const user = res.locals.user;
-  const reservation = new Reservation({date, individualRate});
+  const reservation = new Reservation({date, price});
 
   Venue.findById(venue._id).populate('reservations').populate('user').exec(function(err, foundVenue) {
     if (err) {

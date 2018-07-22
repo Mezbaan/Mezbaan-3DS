@@ -11,5 +11,5 @@ export class VenueDetailInfoComponent {
 
   @Input() public venue: Venue;
 
-  constructor(public helper: HelperService) {}
+  constructor() {}
 }

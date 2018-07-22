@@ -71,7 +71,7 @@ export class VenueDetailReservationComponent implements OnInit {
 
   private computeReservationValues() {
     
-    this.newReservation.individualRate = this.venue.individualRate;
+    this.newReservation.price = this.venue.price;
   }
 
   private resetDatepicker() {

@@ -1,34 +1,15 @@
  <div class="venue">
-  <h2 class="venue-type {{venue.category}}">{{helper.venueType(venue.shared)}} {{venue.category}}</h2>
+  <h2 class="venue-type {{venue.dietaryCategory}}">{{venue.dietaryCategory}}</h2>
   <div class="venue-owner">
-    <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="">
     <span>{{venue.user.email}}</span>
   </div>
-  <h1 class="venue-title">{{venue.title}}</h1>
+  <h1 class="venue-name">{{venue.name}}</h1>
 
-  <h2 class="venue-city">{{venue.city | ucwords}}</h2>
-  <div class="venue-room-info">
-    <span><i class="fa fa-building"></i>{{venue.bedrooms}} bedrooms</span>
-    <span><i class="fa fa-user"></i> {{venue.bedrooms + 4}} guests</span>
-    <span><i class="fa fa-bed"></i> {{venue.bedrooms + 2}} beds</span>
-  </div>
-  <p class="venue-description">
-    {{venue.description}}
+  <h2 class="venue-address">{{venue.address}}</h2>
+  <p class="venue-bio">
+    {{venue.bio}}
   </p>
+  <p>There are {{venue.seats}} seats at this venue.</p>
+  <p>${{venue.price}} per meal</p>
   <hr>
-  <div class="venue-assets">
-    <h3 class="title">Assets</h3>
-    <div class="row">
-      <div class="col-md-6">
-        <span><i class="fa fa-asterisk"></i> Cooling</span>
-        <span><i class="fa fa-thermometer"></i> Heating</span>
-        <span><i class="fa fa-location-arrow"></i> Iron</span>
-      </div>
-      <div class="col-md-6">
-        <span><i class="fa fa-desktop"></i> Working area</span>
-        <span><i class="fa fa-cube"></i> Washing machine</span>
-        <span><i class="fa fa-cube"></i> Dishwasher</span>
-      </div>
-    </div>
-  </div>
 </div>

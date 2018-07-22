@@ -9,15 +9,13 @@ export class Venue {
   _id: string;
   name: String;
   address: String;
-  placeId: String;
-  dietaryCategories: String;
+  dietaryCategory: String;
   picture: String;
   seats: number;
   bio: String;
-  individualRate: number;
+  price: number;
   dayOfTheWeek: number
   createdAt: string;
-  shared: boolean;
   reservations: Reservation[];
   user: User;
 }

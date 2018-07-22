@@ -1,41 +1,34 @@
-<div class="booking">
-  <h3 class="booking-price">${{venue.individualRate}} <span class="booking-per-night">per seat</span></h3>
+<div class="reservation">
+  <h3 class="reservation-price">${{venue.price}}</h3>
   <hr>
   <ng-container *ngIf="auth.isAuthenticated()">
-    <label>Dates</label>
+    <label>Date</label>
       <input type="text" class="form-control daterangepicker-input" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event, daterange)"
        />
-    <div class="form-group">
-      <label for="guests">Guests</label>
-      <input [(ngModel)]="newBooking.guests" type="number" class="form-control" id="guests" aria-describedby="emailHelp" placeholder="">
-    </div>
-    <button [disabled]="!newBooking.startAt || !newBooking.endAt || !newBooking.guests" class="btn btn-bwm btn-confirm btn-block" (click)="openModal(bookingModal)">Reserve place now</button>
+    <button [disabled]="!newBooking.date" class="btn btn-bwm btn-confirm btn-block" (click)="openModal(reservationModal)">Reserve place now</button>
     <hr>
   </ng-container>
   <div *ngIf="!auth.isAuthenticated()" class="should-login-btn-container">
-    <a class="btn btn-bwm btn-login" routerLink="/login">Login and book this place today</a>
+    <a class="btn btn-bwm btn-login" routerLink="/login">Login and reserve this seat today</a>
   </div>
 
-  <p class="booking-note-title">People are interested into this house</p>
-  <p class="booking-note-text">
+  <p class="reservation-note-title">People are interested in this venue</p>
+  <p class="reservation-note-text">
     More than 500 people checked this venue in last month.
   </p>
 </div>
 
 <!-- MODAL -->
-<ng-template #bookingModal let-c="close" let-d="dismiss">
+<ng-template #reservationModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title title">Confirm Booking <p>{{newBooking.startAt}} / {{newBooking.endAt}}</p></h4>
+    <h4 class="modal-title title">Confirm Reservation <p>{{newBooking.date}}</p></h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <em>{{newBooking.days}}</em> nights /
-    <em>{{venue.dailyRate}}$</em> per Night
-    <p>Guests: <em>{{newBooking.guests}}</em></p>
-    <p>Price: <em>{{newBooking.totalPrice}}$ </em></p>
-    <p>Do you confirm your booking for selected days?</p>
+    <em>${{venue.price}}</em> per Eater
+    <p>Do you confirm your reservation for the selected date?</p>
   </div>
   <div *ngIf="errors.length > 0" class="alert alert-danger modal-error">
     <p *ngFor="let error of errors">
@@ -43,7 +36,7 @@
     </p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-bwm" (click)="confirmBooking(bookingModal)">Confirm</button>
+    <button type="button" class="btn btn-bwm" (click)="confirmReservation(reservationModal)">Confirm</button>
     <button #closeBtn type="button" class="btn btn-bwm" (click)="c('Close click')">Cancel</button>
   </div>
 </ng-template>

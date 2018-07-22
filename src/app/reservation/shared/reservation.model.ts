@@ -4,7 +4,7 @@ import { User } from '../../user/shared/user.model';
 export class Reservation {
   _id: string;
   date: string;
-  individualRate: number;
+  price: number;
   createdAt: string;
   venue: Venue;
   user: User;

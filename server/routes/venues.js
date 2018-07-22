@@ -19,7 +19,7 @@ router.get("", function(req, res) {
       res.json(filteredVenues);
     });
   } else {
-      Venue.find({}).select('-reversations').exec(function(err, allVenues) {
+      Venue.find({}).exec(function(err, allVenues) {
       res.json(allVenues);
     });
   }
@@ -28,9 +28,9 @@ router.get("", function(req, res) {
 router.post("", Auth.authMiddleware, function(req, res) {
   // const { title, city, street, category, image, bedrooms, description, dailyRate } = req.body;
   console.log('hitting venue post route');
-  
-  const { name, address, placeid, dietarycategories, picture, seats, bio, individualRate, dayOfTheWeek } = req.body;
-  const venue = new Venue({name, address, placeid, dietarycategories, picture, seats, bio, individualRate, dayOfTheWeek});
+  console.log(req.body);
+  const { name, address, dietaryCategory, picture, seats, bio, price, dayOfTheWeek } = req.body;
+  const venue = new Venue({name, address, dietaryCategory, picture, seats, bio, price, dayOfTheWeek});
   const user = res.locals.user;
   venue.user = user;
 
@@ -83,11 +83,11 @@ router.patch("/:id", Auth.authMiddleware, function(req, res) {
 router.delete("/:id", Auth.authMiddleware, function(req, res) {
 
   Venue.deleteOne({_id: req.params.id})
-    .where({bookings: {$size: 0}})
+    .where({reservations: {$size: 0}})
     .exec(function(err, venue) {
       if (err) { return res.status(422).send({errors: normalizeErrors(err.errors) });}
       if (venue.n == 0) {
-        return res.status(422).send({errors: [{title: 'Has Bookings', detail: "Cannot delete venue with active bookings. Please contact support for more info"}] });
+        return res.status(422).send({errors: [{title: 'Has Reservations', detail: "Cannot delete venue with active reservations. Please contact support for more info"}] });
       }
 
       return res.status(200).send({success: "ok"});
@@ -98,7 +98,7 @@ router.delete("/:id", Auth.authMiddleware, function(req, res) {
 router.get("/:id", function(req, res) {
   Venue.findById(req.params.id).
     populate('user', 'email -_id').
-    populate('bookings', 'startAt endAt -_id').
+    populate('reservations', 'date -_id').
     exec(function(err, foundVenue) {
       res.json(foundVenue);
   });

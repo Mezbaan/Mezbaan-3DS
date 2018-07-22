@@ -4,9 +4,7 @@ import * as moment from 'moment';
 @Injectable()
 export class HelperService {
 
-  rentalType(isShared) {
-    return isShared ? 'shared' : 'whole';
-  }
+  
 
   getRangeOfDates(start_at, end_at) {
     let start = new Date(start_at);

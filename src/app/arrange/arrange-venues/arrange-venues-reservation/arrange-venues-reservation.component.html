@@ -10,7 +10,7 @@
   <div class="modal-body">
     <div *ngFor="let reservation of reservations; let i = index" class="reservations-inner-container">
       <p><span>Date:</span> {{reservation.date | formatDate}}</p>
-      <p><span>Price:</span> {{reservation.individualRate}} $</p>
+      <p><span>Price:</span> {{reservation.price}} $</p>
       <hr *ngIf="i + 1 != reservations.length">
     </div>
   </div>

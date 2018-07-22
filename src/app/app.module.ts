@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { RentalModule } from './rental/rental.module';
 import { VenueModule } from './venue/venue.module';
 import { ManageModule } from './manage/manage.module';
+import { ArrangeModule } from './arrange/arrange.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
@@ -15,7 +16,7 @@ import { HeaderComponent } from './shared/component/header/header.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ManageComponent } from './manage/manage.component';
-
+import { ArrangeComponent } from './arrange/arrange.component';
 import { RentalComponent } from './rental/rental.component';
 import { VenueComponent } from './venue/venue.component';
 
@@ -26,10 +27,11 @@ import { TokenInterceptor } from './shared/interceptor/token.interceptor';
 import { DateFormatPipe } from './shared/pipe/date-format.pipe';
 
  const routes: Routes = [
-   { path: '', redirectTo: '/rentals', pathMatch: 'full' },
+   { path: '', redirectTo: '/venues', pathMatch: 'full' },
    { path: 'rentals', component: RentalComponent },
    { path: 'venues', component: VenueComponent },
    { path: 'manage', component: ManageComponent },
+   { path: 'arrange', component: ArrangeComponent },
    { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
    { path: 'register', component: RegisterComponent, canActivate: [AuthGuard]}
  ];
@@ -50,7 +52,8 @@ import { DateFormatPipe } from './shared/pipe/date-format.pipe';
     AngularFontAwesomeModule,
     SharedModule,
     NgbModule.forRoot(),
-    ManageModule
+    ManageModule,
+    ArrangeModule
   ],
   providers: [
   AuthGuard,

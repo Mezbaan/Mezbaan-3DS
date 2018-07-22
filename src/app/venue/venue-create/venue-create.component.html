@@ -6,45 +6,40 @@
         <form (ngSubmit)="createVenue()" #venueForm="ngForm">
           <div class="form-group">
             <label for="name">Name</label>
-            <input #email="ngModel" [(ngModel)]="newVenue.name" type="text" name="name" value="Humus Surprise" class="form-control" id="name"required>
+            <input #email="ngModel" [(ngModel)]="newVenue.name" type="text" name="name" class="form-control" id="name"required>
           </div>
 
           <div class="form-group">
             <label for="address">Address</label>
-            <input [(ngModel)]="newVenue.address" type="text" name="address" value="1234 Fake Street" class="form-control" id="address" required>
+            <input [(ngModel)]="newVenue.address" type="text" name="address" class="form-control" id="address" required>
           </div>
 
           <div class="form-group">
-            <label for="placeid">Place Id</label>
-            <input [(ngModel)]="newVenue.placeid" type="text" name="street" value="456789" class="form-control" id="placeid" required>
-          </div>
+            <label for="dietaryCategory">Dietary Category</label>
 
-          <div class="form-group">
-            <label for="dietaryCategories">Dietary Categories</label>
-
-            <select class="form-control" id="dietaryCategories" name="dietaryCategories" [(ngModel)]="newVenue.dietaryCategories">
+            <select class="form-control" id="dietaryCategories" name="dietaryCategory" [(ngModel)]="newVenue.dietaryCategory">
               <option *ngFor="let category of venueCategories" [ngValue]="category">{{category}}</option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="picture">Picture Url</label>
-            <input [(ngModel)]="newVenue.picture" type="text" name="picture" value="http://assets.kraftfoods.com/recipe_images/opendeploy/55890_640x428.jpg" class="form-control" id="picture">
+            <input [(ngModel)]="newVenue.picture" type="text" name="picture" id="picture" class="form-control">
           </div>
 
           <div class="form-group">
             <label for="seats">Number of Seats</label>
-            <input [(ngModel)]="newVenue.seats" type="number" name="seats" value="3" class="form-control" id="seats">
+            <input [(ngModel)]="newVenue.seats" type="number" name="seats" class="form-control" min="1" id="seats">
           </div>
 
           <div class="form-group">
             <label for="bio">Bio</label>
-            <textarea [(ngModel)]="newVenue.bio" rows="5" type="text" name="bio" value="Freshly made!" class="form-control" id="bio"> </textarea>
+            <textarea [(ngModel)]="newVenue.bio" rows="5" type="text" name="bio" class="form-control" id="bio"> </textarea>
           </div>
 
           <div class="form-group">
-            <label for="individualRate">Individual Rate</label>
-            <input [(ngModel)]="newVenue.individualRate" type="number" value="12.50" name="individualRate" class="form-control" id="individualRate">
+            <label for="price">Price</label>
+            <input [(ngModel)]="newVenue.price" type="number" name="price" class="form-control" id="price">
           </div>
 
           <div class="form-group">
@@ -63,7 +58,7 @@
       </div>
       <div class="col-md-6 ml-auto">
         <div class="image-container">
-          <h2 class="catchphrase">Hundreds of awesome places in reach of few clicks.</h2>
+          <h2 class="catchphrase">Hundreds of amazing healthy meals in reach of few clicks.</h2>
           <img src="assets/images/create-rental.jpg" alt="">
         </div>
       </div>
