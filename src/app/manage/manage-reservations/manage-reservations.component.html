@@ -8,11 +8,12 @@
             {{reservation.venue.category}}
           </div>
           <div class="card-block">
-            <h4 class="card-title">{{reservation.venue.title}} - {{reservation.venue.city | ucwords}}</h4>
-            <p class="card-text reservation-desc">{{reservation.venue.description}}</p>
-            <p class="card-text reservation-days">{{reservation.startAt | formatDate}} - {{reservation.endAt | formatDate}} | {{reservation.days}} days</p>
-            <p class="card-text reservation-price"><span>Price: </span> <span class="reservation-price-value">{{reservation.totalPrice}} $</span></p>
-            <a class="btn btn-bwm" routerLink="/venues/{{reservation.venue._id}}">Go to Venue</a>
+            <h4 class="card-title">{{reservation.venue.name}} - {{reservation.venue.address}}</h4>
+            <p class="card-text reservation-bio">{{reservation.venue.bio}} {{</p>
+            <p class="card-text reservation-bio">My name is {{reservation.user }} </p>
+            <p class="card-text reservation-date">{{reservation.date | formatDate}}</p>
+            <p class="card-text reservation-price"><span>Price: </span> <span class="reservation-price-value">${{reservation.price}}</span></p>
+            <a class="btn btn-bwm" routerLink="/venues/{{reservation.venue.id}}">Go to Venue</a>
           </div>
           <div class="card-footer text-muted">
             Created {{reservation.createdAt | formatDate}}

@@ -48,12 +48,12 @@ import { DateFormatPipe } from './shared/pipe/date-format.pipe';
     ManageModule
   ],
   providers: [
-  AuthGuard,
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi: true
-  }
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

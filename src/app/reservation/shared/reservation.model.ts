@@ -5,9 +5,9 @@ export class Reservation {
   _id: string;
   startAt: string;
   endAt: string;
-  totalPrice: number;
+  price: number;
   guests: number;
-  days: number;
+  date: string;
   createdAt: string;
   venue: Venue;
   user: User;

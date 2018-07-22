@@ -4,22 +4,35 @@ import { Reservation } from '../../../reservation/shared/reservation.model';
 import { HelperService } from '../../../shared/service/helper.service';
 import { ReservationService } from '../../../reservation/shared/reservation.service';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DaterangePickerComponent } from 'ng2-daterangepicker';
-import { ToastsManager } from 'ng2-toastr';
+import {IMyDpOptions, IMyDateModel} from 'mydatepicker';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from '../../../user/shared/user.service';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+
 import * as moment from 'moment';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
   selector: 'bwm-venue-detail-reservation',
   templateUrl: './venue-detail-reservation.component.html',
-  styleUrls: ['venue-detail-reservation.component.scss']
+  styleUrls: ['venue-detail-reservation.component.scss'],
+  providers: [ FormBuilder ]
 })
+
 export class VenueDetailReservationComponent implements OnInit {
   @Input() public venue: Venue;
-  @ViewChild(DaterangePickerComponent)
-  public picker: DaterangePickerComponent;
+
+  private myForm: FormGroup;
+
+  public datePickerOptions: IMyDpOptions = {
+    todayBtnTxt: 'Today',
+    dateFormat: 'yyyy-mm-dd',
+    firstDayOfWeek: 'mo',
+    sunHighlight: true,
+    inline: false,
+    disableUntil: {year: 2016, month: 8, day: 10}
+  };
 
   public daterange: any = {};
   public takenDates: any = [];
@@ -40,56 +53,27 @@ export class VenueDetailReservationComponent implements OnInit {
               public reservationService: ReservationService,
               public toastr: ToastsManager,
               public vcr: ViewContainerRef,
+              private formBuilder: FormBuilder,
               public auth: UserService ) {
     this.toastr.setRootViewContainerRef(vcr);
-  }
-
-  private computeTakenDates() {
-    const reservations: Reservation[] = this.venue.reservations;
-
-    if (reservations && reservations.length) {
-      reservations.forEach(reservation => {
-        this.fillTakenDates(reservation.startAt, reservation.endAt);
-      });
-    }
-    this.takenDates;
-  }
-
-  private fillTakenDates(startAt, endAt) {
-    const range = this.helper.getRangeOfDates(startAt, endAt);
-
-    range.forEach(date => {
-      this.takenDates.push(date)
-    });
-    this.takenDates.push(moment(startAt).format('Y-MM-DD'));
-    this.takenDates.push(moment(endAt).format('Y-MM-DD'));
   }
 
   private checkForInvalidDates(date) {
     return this.takenDates.includes(date.format('Y-MM-DD')) || date.diff(moment(), 'days', true) <= 0;
   }
 
-  private computeReservationValues() {
-    this.newReservation.days = this.helper.getRangeOfDates(this.newReservation.startAt, this.newReservation.endAt).length;
-    this.newReservation.totalPrice = this.venue.individualRate;
-  }
-
-  private resetDatepicker() {
-    this.picker.datePicker.setStartDate(new Date());
-    this.picker.datePicker.setEndDate(new Date());
-    this.picker.datePicker.element.val('');
-  }
-
   public ngOnInit() {
-    this.computeTakenDates();
     this.newReservation = new Reservation();
+    this.myForm = this.formBuilder.group({
+        //myDate: [null, Validators.required]   // not initial date set
+        //myDate: [{jsdate: new Date()}, Validators.required] // initialize today with jsdate property
+        myDate: [{date: {year: 2018, month: 7, day: 22}}, Validators.required]   // this example is initialized to specific date
+    });
   }
 
-  public selectedDate(value: any, datepicker?: any) {
-    this.newReservation.startAt = moment(value.start).format('Y-MM-DD');
-    this.newReservation.endAt = moment(value.end).format('Y-MM-DD');
-    this.computeReservationValues();
-    this.options.autoUpdateInput = true;
+  public onDateChanged(event: IMyDateModel) {
+    this.newReservation.date = event.formatted;
+    this.newReservation.price = this.venue.individualRate;
   }
 
   public confirmReservation(reservationModal) {
@@ -97,9 +81,8 @@ export class VenueDetailReservationComponent implements OnInit {
 
     this.reservationService.makeReservation(this.newReservation).subscribe(data => {
       this.newReservation = new Reservation();
-      this.fillTakenDates(data.startAt, data.endAt);
-      this.resetDatepicker();
-      this.toastr.success('Reservation succesfully created, you can check your reservation details in manage section', 'Success!');
+
+      this.toastr.success('Reservation succesfully created, you can check your reservation details in arrange section', 'Success!');
       this.modalRef.close();
     }, (errorsResponse: HttpErrorResponse) => {
       this.errors = errorsResponse.error.errors;

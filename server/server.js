@@ -18,7 +18,7 @@ const url = `mongodb://${config.DB_USER}:${config.DB_PASSWORD}@${config.DB_URI}`
 
 mongoose.connect(url, { useNewUrlParser: true }).then(() => {
   if (process.env.NODE_ENV != 'production') {
-    fakeDB.seed();
+    // fakeDB.seed();
   }
 });
 

@@ -2,15 +2,13 @@
   <h3 class="reservation-price">${{venue.individualRate}} <span class="reservation-per-night">per seat</span></h3>
   <hr>
   <ng-container *ngIf="auth.isAuthenticated()">
-    <label>Dates</label>
-      <input type="text" class="form-control daterangepicker-input" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event, daterange)"
-       />
-    <div class="form-group">
-      <label for="guests">Guests</label>
-      <input [(ngModel)]="newReservation.guests" type="number" class="form-control" id="guests" aria-describedby="emailHelp" placeholder="">
-    </div>
-    <button [disabled]="!newReservation.startAt || !newReservation.endAt || !newReservation.guests" class="btn btn-bwm btn-confirm btn-block" (click)="openModal(reservationModal)">Reserve place now</button>
-    <hr>
+    <form #myForm="ngForm" novalidate>
+      <label>Date</label>
+      <my-date-picker [options]="myDatePickerOptions"
+        (dateChanged)="onDateChanged($event)"></my-date-picker>
+      <button [disabled]="!newReservation.date" class="btn btn-bwm btn-confirm btn-block" (click)="openModal(reservationModal)">Reserve place now</button>
+      <hr>
+    </form>
   </ng-container>
   <div *ngIf="!auth.isAuthenticated()" class="should-login-btn-container">
     <a class="btn btn-bwm btn-login" routerLink="/login">Login and book this place today</a>
@@ -25,7 +23,7 @@
 <!-- MODAL -->
 <ng-template #reservationModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title title">Confirm Reservation <p>{{newReservation.startAt}} / {{newReservation.endAt}}</p></h4>
+    <h4 class="modal-title title">Confirm Reservation <p>{{newReservation.date}}</p></h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>

@@ -40,6 +40,7 @@
     "moment": "^2.22.0",
     "multer": "^1.3.1",
     "multer-s3": "^2.7.0",
+    "mydatepicker": "^2.6.4",
     "ng2-daterangepicker": "^2.0.12",
     "ng2-toastr": "^4.1.2",
     "ngx-pipes": "^2.1.2",
@@ -47,12 +48,12 @@
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
-    "@types/jquery": "^3.2.12",
     "@angular/cli": "~1.7.3",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
+    "@types/jquery": "^3.2.12",
     "@types/node": "~6.0.60",
     "codelyzer": "^4.0.1",
     "jasmine-core": "~2.8.0",

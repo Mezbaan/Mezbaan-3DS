@@ -10,7 +10,9 @@ const userSchema = new Schema({
           required: 'Email address is required',
           match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']},
   password: {type: String, required: 'Password is required'},
-  rentals: [{ type: Schema.Types.ObjectId, ref: 'Rental' }],
+  dietaryCategory: String,
+  bio: String,
+  avatarUrl: String,
   venues: [{ type: Schema.Types.ObjectId, ref: 'Venue' }],
   reservations: [{ type: Schema.Types.ObjectId, ref: 'Reservation' }]
 });

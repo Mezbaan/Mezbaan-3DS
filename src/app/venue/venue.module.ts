@@ -14,6 +14,9 @@ import { VenueDetailComponent } from './venue-detail/venue-detail.component';
 import { VenueDetailReservationComponent } from './venue-detail/venue-detail-reservation/venue-detail-reservation.component';
 import { VenueCreateComponent } from './venue-create/venue-create.component';
 
+import { FormsModule } from '@angular/forms';
+import { MyDatePickerModule } from 'mydatepicker';
+
 import { VenueService } from './shared/venue.service';
 import { ReservationService } from '../reservation/shared/reservation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -47,6 +50,8 @@ const routes: Routes = [
     MapModule,
     Daterangepicker,
     BrowserAnimationsModule,
+    FormsModule,
+    MyDatePickerModule,
     EditableModule,
     ImageUploadModule,
   ],
