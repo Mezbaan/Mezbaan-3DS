@@ -12,9 +12,9 @@ export class Rental {
   image: string;
   bedrooms: number;
   description: string;
-  dailyRate: number;xX
+  dailyRate: number;
   createdAt: string;
-  shared:boolean;
+  shared: boolean;
   reservations: Reservation[];
   user: User;
 }

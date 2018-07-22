@@ -6,7 +6,7 @@ const rentalShema = new Schema({
   city: {type: String, lowercase: true, required: true},
   street: {type: String, required: true},
   category: {type: String, lowercase: true},
-  image: {type: String, required: true},
+  image: {type: String},
   bedrooms: Number,
   description: {type: String, required: true},
   dailyRate: Number,
