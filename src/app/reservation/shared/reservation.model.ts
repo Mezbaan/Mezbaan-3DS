@@ -5,7 +5,6 @@ export class Reservation {
   _id: string;
   date: string;
   individualRate: number;
-  guests: number;
   createdAt: string;
   venue: Venue;
   user: User;

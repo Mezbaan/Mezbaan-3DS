@@ -49,29 +49,29 @@ export class VenueDetailReservationComponent implements OnInit {
 
     if (reservations && reservations.length) {
       reservations.forEach(reservation => {
-        this.fillTakenDates(reservation.startAt, reservation.endAt);
+        this.fillTakenDates(reservation.date);
       });
     }
     this.takenDates;
   }
 
-  private fillTakenDates(startAt, endAt) {
-    const range = this.helper.getRangeOfDates(startAt, endAt);
+  private fillTakenDates(date) {
+    const range = this.helper.getRangeOfDates(date, date);
 
     range.forEach(date => {
       this.takenDates.push(date)
     });
-    this.takenDates.push(moment(startAt).format('Y-MM-DD'));
-    this.takenDates.push(moment(endAt).format('Y-MM-DD'));
+    this.takenDates.push(moment(date).format('Y-MM-DD'));
+    this.takenDates.push(moment(date).format('Y-MM-DD'));
   }
 
   private checkForInvalidDates(date) {
     return this.takenDates.includes(date.format('Y-MM-DD')) || date.diff(moment(), 'days', true) <= 0;
   }
 
-  private computeReveravtionValues() {
-    this.newReveravtion.days = this.helper.getRangeOfDates(this.newReveravtion.startAt, this.newReservation.endAt).length;
-    this.newReservation.totalPrice = this.venue.individualRate;
+  private computeReservationValues() {
+    
+    this.newReservation.individualRate = this.venue.individualRate;
   }
 
   private resetDatepicker() {
@@ -82,24 +82,24 @@ export class VenueDetailReservationComponent implements OnInit {
 
   public ngOnInit() {
     this.computeTakenDates();
-    this.newReveravtion = new Reveravtion();
+    this.newReservation = new Reservation();
   }
 
   public selectedDate(value: any, datepicker?: any) {
-    this.newReveravtion.startAt = moment(value.start).format('Y-MM-DD');
-    this.newReveravtion.endAt = moment(value.end).format('Y-MM-DD');
-    this.computeReveravtionValues();
+    this.newReservation.date = moment(value.start).format('Y-MM-DD');
+    this.newReservation.date = moment(value.end).format('Y-MM-DD');
+    this.computeReservationValues();
     this.options.autoUpdateInput = true;
   }
 
-  public confirmReveravtion(reveravtionModal) {
-    this.newReveravtion.venue = this.venue;
+  public confirmReservation(reservationModal) {
+    this.newReservation.venue = this.venue;
 
-    this.reveravtionService.makeReveravtion(this.newReveravtion).subscribe(data => {
-      this.newReveravtion = new Reveravtion();
-      this.fillTakenDates(data.startAt, data.endAt);
+    this.reservationService.makeReservation(this.newReservation).subscribe(data => {
+      this.newReservation = new Reservation();
+      this.fillTakenDates(data.date);
       this.resetDatepicker();
-      this.toastr.success('Reveravtion succesfully created, you can check your reveravtion details in arrange section', 'Success!');
+      this.toastr.success('Reservation succesfully created, you can check your reservation details in arrange section', 'Success!');
       this.modalRef.close();
     }, (errorsResponse: HttpErrorResponse) => {
       this.errors = errorsResponse.error.errors;

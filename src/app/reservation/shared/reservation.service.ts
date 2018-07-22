@@ -13,6 +13,6 @@ export class ReservationService {
   }
 
   getCurrentUserReservations(): Observable<any> {
-    return this.http.get('/api/v1/reservations/manage');
+    return this.http.get('/api/v1/reservations/arrange');
   }
 }

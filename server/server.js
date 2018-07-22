@@ -11,6 +11,7 @@ const express       = require("express"),
 const rentalsRoutes = require("./routes/rentals"),
       venuesRoutes = require("./routes/venues"),
       bookingRoutes = require("./routes/bookings"),
+      reservationRoutes = require("./routes/reservations"),
       authRoutes    = require("./routes/auth"),
       fileRoutes    = require("./routes/file-upload");
 
@@ -30,6 +31,7 @@ app.use("/api/v1/", fileRoutes);
 app.use("/api/v1/rentals", rentalsRoutes);
 app.use("/api/v1/venues", venuesRoutes);
 app.use("/api/v1/bookings", bookingRoutes);
+app.use("/api/v1/reservations", reservationRoutes);
 
 
 if (process.env.NODE_ENV == 'production') {

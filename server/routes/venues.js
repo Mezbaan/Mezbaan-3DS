@@ -3,7 +3,7 @@ const router = express.Router();
 const Venue = require("../models/venue");
 const User = require("../models/user");
 const Auth = require("../controllers/auth");
-const Booking = require("../models/booking");
+const Reservation = require("../models/reservation");
 const {normalizeErrors} = require("../helpers/mongoose-helper");
 
 // TEST WITH AUTH MIDDLEWARE
@@ -11,7 +11,7 @@ router.get("", function(req, res) {
   const city = req.query.city;
 
   if (city) {
-    Venue.find({city: city.toLowerCase()}).select('-bookings').exec(function(err, filteredVenues) {
+    Venue.find({city: city.toLowerCase()}).select('-reservations').exec(function(err, filteredVenues) {
       if (err || filteredVenues.length === 0 ) {
         return res.status(422).send({errors: [{title: 'No Venues found', detail: `There are no venues for city ${city}`}] });
       }
@@ -19,7 +19,7 @@ router.get("", function(req, res) {
       res.json(filteredVenues);
     });
   } else {
-      Venue.find({}).select('-bookings').exec(function(err, allVenues) {
+      Venue.find({}).select('-reversations').exec(function(err, allVenues) {
       res.json(allVenues);
     });
   }
@@ -45,10 +45,10 @@ router.post("", Auth.authMiddleware, function(req, res) {
   });
 });
 
-router.get("/manage", Auth.authMiddleware, function(req, res) {
+router.get("/arrange", Auth.authMiddleware, function(req, res) {
   const user = res.locals.user;
 
-  Venue.where({user: user}).populate('bookings').exec(function(err, foundVenues){
+  Venue.where({user: user}).populate('reservations').exec(function(err, foundVenues){
     if (err) {
       return res.status(422).send({errors: normalizeErrors(err.errors) });
     }
