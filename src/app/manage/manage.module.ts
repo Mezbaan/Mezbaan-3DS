@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
 import { ManageRentalsComponent } from './manage-rentals/manage-rentals.component';
-import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
+import { ManageReservationsComponent } from './manage-reservations/manage-reservations.component';
 import { ManageComponent } from './manage.component';
-import { ManageRentalsBookingComponent } from './manage-rentals/manage-rentals-booking/manage-rentals-booking.component';
+import { ManageRentalsReservationComponent } from './manage-rentals/manage-rentals-reservation/manage-rentals-reservation.component';
 
 import { RentalService } from '../rental/shared/rental.service';
-import { BookingService } from '../booking/shared/booking.service';
+import { ReservationService } from '../reservation/shared/reservation.service';
 import { AuthGuard } from '../shared/auth.guard';
 
 const routes: Routes = [
@@ -17,7 +17,7 @@ const routes: Routes = [
     component: ManageComponent,
     children: [
       { path: 'rentals', component: ManageRentalsComponent, canActivate: [AuthGuard] },
-      { path: 'bookings', component: ManageBookingsComponent, canActivate: [AuthGuard] },
+      { path: 'reservations', component: ManageReservationsComponent, canActivate: [AuthGuard] },
     ]
   }
 ];
@@ -31,9 +31,9 @@ const routes: Routes = [
   declarations: [
     ManageComponent,
     ManageRentalsComponent,
-    ManageRentalsBookingComponent,
-    ManageBookingsComponent
+    ManageRentalsReservationComponent,
+    ManageReservationsComponent
   ],
-  providers: [RentalService, BookingService]
+  providers: [RentalService, ReservationService]
 })
 export class ManageModule {}

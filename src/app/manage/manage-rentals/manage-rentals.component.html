@@ -7,8 +7,8 @@
           <div class="card-block">
             <h4 class="card-title">{{rental.title}} - {{rental.city | ucwords}}</h4>
             <a class="btn btn-bwm" routerLink="/rentals/{{rental._id}}">Go to Rental</a>
-            <span *ngIf="rental.bookings.length > 0">
-              <bwm-manage-rentals-booking [bookings]="rental.bookings"></bwm-manage-rentals-booking>
+            <span *ngIf="rental.reservations.length > 0">
+              <bwm-manage-rentals-reservation [reservations]="rental.reservations"></bwm-manage-rentals-reservation>
             </span>
           </div>
           <div class="card-footer text-muted">

@@ -3,7 +3,7 @@ const router = express.Router();
 const Rental = require("../models/rental");
 const User = require("../models/user");
 const Auth = require("../controllers/auth");
-const Booking = require("../models/booking");
+const Reservation = require("../models/reservation");
 const {normalizeErrors} = require("../helpers/mongoose-helper");
 
 // TEST WITH AUTH MIDDLEWARE
@@ -11,7 +11,7 @@ router.get("", function(req, res) {
   const city = req.query.city;
 
   if (city) {
-    Rental.find({city: city.toLowerCase()}).select('-bookings').exec(function(err, filteredRentals) {
+    Rental.find({city: city.toLowerCase()}).select('-reservations').exec(function(err, filteredRentals) {
       if (err || filteredRentals.length === 0 ) {
         return res.status(422).send({errors: [{title: 'No Rentals found', detail: `There are no rentals for city ${city}`}] });
       }
@@ -19,7 +19,7 @@ router.get("", function(req, res) {
       res.json(filteredRentals);
     });
   } else {
-      Rental.find({}).select('-bookings').exec(function(err, allRentals) {
+      Rental.find({}).select('-reservations').exec(function(err, allRentals) {
       res.json(allRentals);
     });
   }
@@ -45,7 +45,7 @@ router.post("", Auth.authMiddleware, function(req, res) {
 router.get("/manage", Auth.authMiddleware, function(req, res) {
   const user = res.locals.user;
 
-  Rental.where({user: user}).populate('bookings').exec(function(err, foundRentals){
+  Rental.where({user: user}).populate('reservations').exec(function(err, foundRentals){
     if (err) {
       return res.status(422).send({errors: normalizeErrors(err.errors) });
     }
@@ -80,11 +80,11 @@ router.patch("/:id", Auth.authMiddleware, function(req, res) {
 router.delete("/:id", Auth.authMiddleware, function(req, res) {
 
   Rental.deleteOne({_id: req.params.id})
-    .where({bookings: {$size: 0}})
+    .where({reservations: {$size: 0}})
     .exec(function(err, rental) {
       if (err) { return res.status(422).send({errors: normalizeErrors(err.errors) });}
       if (rental.n == 0) {
-        return res.status(422).send({errors: [{title: 'Has Bookings', detail: "Cannot delete rental with active bookings. Please contact support for more info"}] });
+        return res.status(422).send({errors: [{title: 'Has Reservations', detail: "Cannot delete rental with active reservations. Please contact support for more info"}] });
       }
 
       return res.status(200).send({success: "ok"});
@@ -95,7 +95,7 @@ router.delete("/:id", Auth.authMiddleware, function(req, res) {
 router.get("/:id", function(req, res) {
   Rental.findById(req.params.id).
     populate('user', 'email -_id').
-    populate('bookings', 'startAt endAt -_id').
+    populate('reservations', 'startAt endAt -_id').
     exec(function(err, foundRental) {
       res.json(foundRental);
   });

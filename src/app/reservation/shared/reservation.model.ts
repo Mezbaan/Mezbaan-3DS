@@ -1,7 +1,7 @@
 import { Rental } from '../../rental/shared/rental.model';
 import { User } from '../../user/shared/user.model';
 
-export class Booking {
+export class Reservation {
   _id: string;
   startAt: string;
   endAt: string;

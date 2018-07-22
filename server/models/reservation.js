@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const bookingShema = new Schema({
+const reservationShema = new Schema({
   endAt: {type: Date, required: 'Starting date is required'},
   startAt: {type: Date, required: 'Ending date is required'},
   totalPrice: Number,
@@ -12,4 +12,4 @@ const bookingShema = new Schema({
   rental: { type: Schema.Types.ObjectId, ref: 'Rental' }
 });
 
-module.exports = mongoose.model("Booking", bookingShema);
+module.exports = mongoose.model("Reservation", reservationShema);

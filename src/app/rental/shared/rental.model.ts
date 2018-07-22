@@ -1,4 +1,4 @@
-import { Booking } from '../../booking/shared/booking.model';
+import { Reservation } from '../../reservation/shared/reservation.model';
 import { User } from '../../user/shared/user.model';
 
 export class Rental {
@@ -12,9 +12,9 @@ export class Rental {
   image: string;
   bedrooms: number;
   description: string;
-  dailyRate: number;
+  dailyRate: number;xX
   createdAt: string;
   shared:boolean;
-  bookings: Booking[];
+  reservations: Reservation[];
   user: User;
 }

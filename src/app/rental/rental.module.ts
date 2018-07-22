@@ -11,11 +11,11 @@ import { RentalListComponent } from './rental-list/rental-list.component';
 import { RentalListDetailComponent } from './rental-list-detail/rental-list-detail.component';
 import { RentalSearchComponent } from './rental-search/rental-search.component';
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
-import { RentalDetailBookingComponent } from './rental-detail/rental-detail-booking/rental-detail-booking.component';
+import { RentalDetailReservationComponent } from './rental-detail/rental-detail-reservation/rental-detail-reservation.component';
 import { RentalCreateComponent } from './rental-create/rental-create.component';
 
 import { RentalService } from './shared/rental.service';
-import { BookingService } from '../booking/shared/booking.service';
+import { ReservationService } from '../reservation/shared/reservation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -56,12 +56,12 @@ const routes: Routes = [
     RentalListComponent,
     RentalListDetailComponent,
     RentalDetailComponent,
-    RentalDetailBookingComponent,
+    RentalDetailReservationComponent,
     RentalSearchComponent,
     RentalCreateComponent,
     RentalDetailUpdateComponent,
     RentalDetailInfoComponent
   ],
-  providers: [RentalService, BookingService]
+  providers: [RentalService, ReservationService]
 })
 export class RentalModule {}

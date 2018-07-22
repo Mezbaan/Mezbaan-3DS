@@ -1,0 +1,21 @@
+<button class="btn btn-bwm" (click)="modalService.open(reservationModal)">Show Reservations</button>
+
+<ng-template #reservationModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title title">Made Reservations</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngFor="let reservation of reservations; let i = index" class="reservations-inner-container">
+      <p><span>Date:</span> {{reservation.startAt | formatDate}} - {{reservation.endAt | formatDate}}</p>
+      <p><span>Guests:</span> {{reservation.guests}}</p>
+      <p><span>Total Price:</span> {{reservation.totalPrice}} $</p>
+      <hr *ngIf="i + 1 != reservations.length">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-bwm" (click)="c('Close click')">Cancel</button>
+  </div>
+</ng-template>
