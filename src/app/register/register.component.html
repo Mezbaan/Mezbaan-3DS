@@ -26,6 +26,24 @@
             <label for="passwordConfirmation">Confirm Password</label>
             <input [(ngModel)]="user.passwordConfirmation" name="passwordConfirmation" type="password" class="form-control" id="passwordConfirmation">
           </div>
+
+          <div class="form-group">
+            <label for="dietaryCategory">Dietary Category</label>
+
+            <select class="form-control" id="dietaryCategory" name="dietaryCategory" [(ngModel)]="user.dietaryCategory">
+              <option *ngFor="let category of userCategories" [ngValue]="category">{{category}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="picture">Avatar Url</label>
+            <input [(ngModel)]="user.avatarUrl" type="text" name="avatarUrl" id="avatarUrl" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="bio">Bio</label>
+            <textarea [(ngModel)]="user.bio" rows="5" type="text" name="bio" class="form-control" id="bio"> </textarea>
+          </div>
           <button [disabled]="!registerForm.form.valid" (click)="register()" type="submit" class="btn btn-bwm">Submit</button>
 
         </form>
@@ -37,7 +55,7 @@
       </div>
       <div class="col-md-6 ml-auto">
         <div class="image-container">
-          <h2 class="catchphrase">As our member you have access to most awesome places in the world.</h2>
+          <h2 class="catchphrase">As our member you have access to unique meals around the world.</h2>
           <img src="assets/images/register-image.jpg" alt="">
         </div>
       </div>

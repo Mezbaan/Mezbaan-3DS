@@ -9,6 +9,9 @@ exports.signup = function(req, res, next){
   const username = req.body.username;
   const password = req.body.password;
   const passwordConf = req.body.passwordConfirmation;
+  const bio = req.body.bio;
+  const dietaryCategory = req.body.dietaryCategory;
+  const avatarUrl = req.body.avatarUrl;
 
   if(password !== passwordConf) {
     return res.status(422).send({errors: [{title: 'Invalid Password', detail: "Password is not same as confirmation"}] });
@@ -33,7 +36,10 @@ exports.signup = function(req, res, next){
   const user = new User({
     username: username,
     email: email,
-    password: password
+    password: password,
+    bio: bio,
+    dietaryCategory: dietaryCategory,
+    avatarUrl: avatarUrl
   });
 
   user.save(function(err){

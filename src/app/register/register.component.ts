@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   public user: User;
   public errors = [];
+  public userCategories = ['Kosher', 'Gluten-Free', 'Halal', 'Keto', 'Vegetarian', 'Vegan', 'Peanut Allergy', 'GMO-Free', 'Locally Sourced', 'Pescatarian', 'Lactose-Free', 'Paleo'];
 
   constructor(private userService: UserService,
               private router: Router){}
