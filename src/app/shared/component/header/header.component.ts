@@ -19,6 +19,6 @@ export class HeaderComponent {
   }
 
   public search(city: string): void {
-    city ? this.router.navigate([`rentals/${city}/homes`]) : this.router.navigate(['rentals'])
+    city ? this.router.navigate([`venues/${city}/homes`]) : this.router.navigate(['venues'])
   }
 }

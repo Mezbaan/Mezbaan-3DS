@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Venue } from '../../shared/venue.model';
-import { HelperService } from '../../../shared/service/helper.service';
 
 @Component({
   selector: 'bwm-venue-detail-info',
@@ -11,5 +10,5 @@ export class VenueDetailInfoComponent {
 
   @Input() public venue: Venue;
 
-  constructor(public helper: HelperService) {}
+  constructor() {}
 }

@@ -5,14 +5,14 @@
       <div *ngFor="let reservation of reservations" class="col-md-4">
         <div class="card text-center">
           <div class="card-header">
-            {{reservation.rental.category}}
+            {{reservation.venue.category}}
           </div>
           <div class="card-block">
-            <h4 class="card-title">{{reservation.rental.title}} - {{reservation.rental.city | ucwords}}</h4>
-            <p class="card-text reservation-desc">{{reservation.rental.description}}</p>
+            <h4 class="card-title">{{reservation.venue.title}} - {{reservation.venue.city | ucwords}}</h4>
+            <p class="card-text reservation-desc">{{reservation.venue.description}}</p>
             <p class="card-text reservation-days">{{reservation.startAt | formatDate}} - {{reservation.endAt | formatDate}} | {{reservation.days}} days</p>
             <p class="card-text reservation-price"><span>Price: </span> <span class="reservation-price-value">{{reservation.totalPrice}} $</span></p>
-            <a class="btn btn-bwm" routerLink="/rentals/{{reservation.rental._id}}">Go te Rental</a>
+            <a class="btn btn-bwm" routerLink="/venues/{{reservation.venue._id}}">Go to Venue</a>
           </div>
           <div class="card-footer text-muted">
             Created {{reservation.createdAt | formatDate}}
@@ -21,8 +21,8 @@
       </div>
     </ng-container>
     <div *ngIf="reservations && reservations.length == 0" class="alert alert-warning">
-      You have no reservations created go to rentals section and book your place today.
-      <a class="btn btn-bwm" routerLink="/rentals">Available Rentals</a>
+      You have no reservations created go to venues section and book your place today.
+      <a class="btn btn-bwm" routerLink="/venues">Available Venues</a>
     </div>
   </div>
 </section>

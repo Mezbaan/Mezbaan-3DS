@@ -1,31 +1,31 @@
 const Reservation = require("../models/reservation");
-const Rental = require("../models/rental");
+const Venue = require("../models/venue");
 const User = require("../models/user");
 const {normalizeErrors} = require("../helpers/mongoose-helper");
 const moment = require('moment');
 
 exports.createReservation = function(req, res, next) {
-  const { startAt, endAt, totalPrice, days, guests, rentalId, rental } = req.body;
+  const { startAt, endAt, totalPrice, days, guests, venueId, venue } = req.body;
   const user = res.locals.user;
   const reservation = new Reservation({startAt, endAt, totalPrice, days, guests});
 
-  Rental.findById(rental._id).populate('reservations').populate('user').exec(function(err, foundRental) {
+  Venue.findById(venue._id).populate('reservations').populate('user').exec(function(err, foundvenue) {
     if (err) {
       return res.status(422).send({errors: normalizeErrors(err.errors) });
     }
 
-    if (foundRental.user.id === user.id) {
-      return res.status(422).send({errors: [{title: 'Invalid User', detail: "Cannot create reservation on your rental"}] });
+    if (foundVenue.user.id === user.id) {
+      return res.status(422).send({errors: [{title: 'Invalid User', detail: "Cannot create reservation on your venue"}] });
     }
 
-    if (isValidReservation(reservation, foundRental)) {
+    if (isValidReservation(reservation, foundVenue)) {
       reservation.user = user;
-      reservation.rental = foundRental;
-      foundRental.reservations.push(reservation);
+      reservation.venue = foundVenue;
+      foundVenue.reservations.push(reservation);
 
       User.update({_id: user.id}, { $push: {reservations: reservation}}, function(){});
       reservation.save();
-      foundRental.save();
+      foundVenue.save();
 
       return res.json({startAt: reservation.startAt, endAt: reservation.endAt});
     } else {
@@ -37,7 +37,7 @@ exports.createReservation = function(req, res, next) {
 exports.getUserReservations = function(req, res, next) {
   const user = res.locals.user;
 
-  Reservation.where({user: user}).populate('rental').exec(function(err, foundReservations){
+  Reservation.where({user: user}).populate('venue').exec(function(err, foundReservations){
     if (err) {
       return res.status(422).send({errors: normalizeErrors(err.errors) });
     }
@@ -46,11 +46,11 @@ exports.getUserReservations = function(req, res, next) {
   });
 }
 
-function isValidReservation(proposedReservation, rental) {
+function isValidReservation(proposedReservation, venue) {
   let isValid = true;
 
-  if (rental.reservations && rental.reservations.length > 0) {
-    isValid = rental.reservations.every(function(reservation) {
+  if (venue.reservations && venue.reservations.length > 0) {
+    isValid = venue.reservations.every(function(reservation) {
       const proposedStart = moment(proposedReservation.startAt);
       const proposedEnd = moment(proposedReservation.endAt);
       const actualStart = moment(reservation.startAt);

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VenueService } from '../shared/venue.service';
-import { HelperService } from '../../shared/service/helper.service';
-
 import { Venue } from '../shared/venue.model';
 
 @Component({
@@ -14,8 +12,7 @@ export class VenueDetailComponent implements OnInit {
   public venue: Venue;
 
   constructor(public venueService: VenueService,
-              public route: ActivatedRoute,
-              public helper: HelperService) {}
+              public route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {

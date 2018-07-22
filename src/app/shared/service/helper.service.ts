@@ -4,7 +4,7 @@ import * as moment from 'moment';
 @Injectable()
 export class HelperService {
 
-  rentalType(isShared) {
+  venueType(isShared) {
     return isShared ? 'shared' : 'whole';
   }
 
