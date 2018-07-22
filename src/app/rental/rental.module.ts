@@ -17,7 +17,7 @@ import { RentalCreateComponent } from './rental-create/rental-create.component';
 import { RentalService } from './shared/rental.service';
 import { ReservationService } from '../reservation/shared/reservation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { ToastModule } from 'ng2-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditableModule } from '../shared/component/editable/editable.module';
 

@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Rental } from '../../shared/rental.model';
+import { Venue } from '../../shared/venue.model';
 import { Reservation } from '../../../reservation/shared/reservation.model';
 import { HelperService } from '../../../shared/service/helper.service';
 import { ReservationService } from '../../../reservation/shared/reservation.service';
@@ -12,12 +12,12 @@ import * as moment from 'moment';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
-  selector: 'bwm-rental-detail-reservation',
-  templateUrl: './rental-detail-reservation.component.html',
-  styleUrls: ['rental-detail-reservation.component.scss']
+  selector: 'bwm-venue-detail-reservation',
+  templateUrl: './venue-detail-reservation.component.html',
+  styleUrls: ['venue-detail-reservation.component.scss']
 })
-export class RentalDetailReservationComponent implements OnInit {
-  @Input() public rental: Rental;
+export class VenueDetailReservationComponent implements OnInit {
+  @Input() public venue: Venue;
   @ViewChild(DaterangePickerComponent)
   public picker: DaterangePickerComponent;
 
@@ -45,7 +45,7 @@ export class RentalDetailReservationComponent implements OnInit {
   }
 
   private computeTakenDates() {
-    const reservations: Reservation[] = this.rental.reservations;
+    const reservations: Reservation[] = this.venue.reservations;
 
     if (reservations && reservations.length) {
       reservations.forEach(reservation => {
@@ -71,7 +71,7 @@ export class RentalDetailReservationComponent implements OnInit {
 
   private computeReservationValues() {
     this.newReservation.days = this.helper.getRangeOfDates(this.newReservation.startAt, this.newReservation.endAt).length;
-    this.newReservation.totalPrice = this.newReservation.days * this.rental.dailyRate;
+    this.newReservation.totalPrice = this.venue.individualRate;
   }
 
   private resetDatepicker() {
@@ -93,7 +93,7 @@ export class RentalDetailReservationComponent implements OnInit {
   }
 
   public confirmReservation(reservationModal) {
-    this.newReservation.rental = this.rental;
+    this.newReservation.venue = this.venue;
 
     this.reservationService.makeReservation(this.newReservation).subscribe(data => {
       this.newReservation = new Reservation();

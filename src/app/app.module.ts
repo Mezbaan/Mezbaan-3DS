@@ -6,6 +6,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { SharedModule } from './shared/shared.module';
 import { RentalModule } from './rental/rental.module';
+import { VenueModule } from './venue/venue.module';
 import { ManageModule } from './manage/manage.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,6 +17,7 @@ import { RegisterComponent } from './register/register.component';
 import { ManageComponent } from './manage/manage.component';
 
 import { RentalComponent } from './rental/rental.component';
+import { VenueComponent } from './venue/venue.component';
 
 import { AuthGuard } from './shared/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -26,6 +28,7 @@ import { DateFormatPipe } from './shared/pipe/date-format.pipe';
  const routes: Routes = [
    { path: '', redirectTo: '/rentals', pathMatch: 'full' },
    { path: 'rentals', component: RentalComponent },
+   { path: 'venues', component: VenueComponent },
    { path: 'manage', component: ManageComponent },
    { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
    { path: 'register', component: RegisterComponent, canActivate: [AuthGuard]}
@@ -42,6 +45,7 @@ import { DateFormatPipe } from './shared/pipe/date-format.pipe';
     BrowserModule,
     RouterModule.forRoot(routes),
     RentalModule,
+    VenueModule,
     HttpClientModule,
     AngularFontAwesomeModule,
     SharedModule,

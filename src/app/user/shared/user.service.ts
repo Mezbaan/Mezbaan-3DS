@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from './user.model';
 import { HttpClient } from '@angular/common/http';
-import 'rxjs/Rx';
+import 'rxjs';
 
 export interface LoginData {
   email: string,

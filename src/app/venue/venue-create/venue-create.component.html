@@ -1,0 +1,66 @@
+<section id="newVenue">
+  <div class="bwm-form">
+    <div class="row">
+      <div class="col-md-5">
+        <h1 class="page-title">Create Venue</h1>
+        <form (ngSubmit)="createVenue()" #venueForm="ngForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input #email="ngModel" [(ngModel)]="newVenue.name" type="text" name="name" class="form-control" id="name"required>
+          </div>
+
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input [(ngModel)]="newVenue.address" type="text" name="address" class="form-control" id="address" required>
+          </div>
+
+          <div class="form-group">
+            <label for="placeid">Place Id</label>
+            <input [(ngModel)]="newVenue.placeid" type="text" name="street" class="form-control" id="placeid" required>
+          </div>
+
+          <div class="form-group">
+            <label for="dietaryCategories">Dietary Categories</label>
+
+            <select class="form-control" id="dietaryCategories" name="dietaryCategories" [(ngModel)]="newVenue.dietaryCategories">
+              <option *ngFor="let category of venueCategories" [ngValue]="category">{{category}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="picture">Picture Url</label>
+            <input [(ngModel)]="newVenue.picture" type="text" name="picture" class="form-control" id="picture">
+          </div>
+
+          <div class="form-group">
+            <label for="seats">Number of Seats</label>
+            <input [(ngModel)]="newVenue.seats" type="number" name="seats" class="form-control" id="seats">
+          </div>
+
+          <div class="form-group">
+            <label for="bio">Bio</label>
+            <textarea [(ngModel)]="newVenue.bio" rows="5" type="text" name="bio" class="form-control" id="bio"> </textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="individualRate">Individual Rate</label>
+            <input [(ngModel)]="newVenue.individualRate" type="number" name="individualRate" class="form-control" id="individualRate">
+          </div>
+
+          <button [disabled]="!venueForm.form.valid" type="submit" class="btn btn-bwm">Submit</button>
+        </form>
+        <!-- <div *ngIf="errors.length > 0" class="alert alert-danger">
+          <p *ngFor="let error of errors">
+            {{error.detail}}
+          </p>
+        </div> -->
+      </div>
+      <div class="col-md-6 ml-auto">
+        <div class="image-container">
+          <h2 class="catchphrase">Hundreds of awesome places in reach of few clicks.</h2>
+          <img src="assets/images/create-rental.jpg" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

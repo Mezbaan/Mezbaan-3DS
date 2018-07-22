@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Rental = require("../models/rental");
+const Venue = require("../models/venue");
 const User = require("../models/user");
 const Auth = require("../controllers/auth");
 const Reservation = require("../models/reservation");
@@ -11,32 +11,35 @@ router.get("", function(req, res) {
   const city = req.query.city;
 
   if (city) {
-    Rental.find({city: city.toLowerCase()}).select('-reservations').exec(function(err, filteredRentals) {
-      if (err || filteredRentals.length === 0 ) {
-        return res.status(422).send({errors: [{title: 'No Rentals found', detail: `There are no rentals for city ${city}`}] });
+    Venue.find({city: city.toLowerCase()}).select('-reservations').exec(function(err, filteredVenues) {
+      if (err || filteredVenues.length === 0 ) {
+        return res.status(422).send({errors: [{title: 'No Venues found', detail: `There are no venues for city ${city}`}] });
       }
 
-      res.json(filteredRentals);
+      res.json(filteredVenues);
     });
   } else {
-      Rental.find({}).select('-reservations').exec(function(err, allRentals) {
-      res.json(allRentals);
+      Venue.find({}).select('-reservations').exec(function(err, allVenues) {
+      res.json(allVenues);
     });
   }
 });
 
 router.post("", Auth.authMiddleware, function(req, res) {
-  const { title, city, street, category, image, bedrooms, description, dailyRate } = req.body;
-  const rental = new Rental({name, address, placeid, dietarycategories, picture, seats, bio, individualRate});
+  // const { title, city, street, category, image, bedrooms, description, dailyRate } = req.body;
+  console.log('hitting venue post route');
+  
+  const { name, address, placeid, dietarycategories, picture, seats, bio, individualRate } = req.body;
+  const venue = new Venue({name, address, placeid, dietarycategories, picture, seats, bio, individualRate});
   const user = res.locals.user;
-  rental.user = user;
+  venue.user = user;
 
-  Rental.create(rental, function(err, newRental) {
+  Venue.create(venue, function(err, newVenue) {
     if (err) {
       console.log('errors: ',err);
       return res.status(422).send({errors: normalizeErrors(err.errors) });
     } else {
-      User.update({_id: user.id}, { $push: {rentals: newRental}}, function(){});
+      User.update({_id: user.id}, { $push: {venues: newVenue}}, function(){});
       res.status(200).send({});
     }
   });
@@ -45,46 +48,46 @@ router.post("", Auth.authMiddleware, function(req, res) {
 router.get("/manage", Auth.authMiddleware, function(req, res) {
   const user = res.locals.user;
 
-  Rental.where({user: user}).populate('reservations').exec(function(err, foundRentals){
+  Venue.where({user: user}).populate('reservations').exec(function(err, foundVenues){
     if (err) {
       return res.status(422).send({errors: normalizeErrors(err.errors) });
     }
 
-    res.json(foundRentals);
+    res.json(foundVenues);
   });
 });
 
 router.patch("/:id", Auth.authMiddleware, function(req, res) {
 
-  const rentalData = req.body;
+  const venueData = req.body;
   const user = res.locals.user;
 
-  Rental.findById(req.params.id)
+  Venue.findById(req.params.id)
   .populate('user')
-  .exec(function(err, foundRental) {
-     if (foundRental.user.id !== user.id) {
+  .exec(function(err, foundVenue) {
+     if (foundVenue.user.id !== user.id) {
       return res.status(422).send({errors: [{title: 'Invalid User', detail: "Update not allowed!"}] });
     }
 
     if (err) { return res.status(422).send({errors: normalizeErrors(err.errors)})};
 
-    foundRental.set(rentalData);
-    foundRental.save(function(err) {
+    foundVenue.set(venueData);
+    foundVenue.save(function(err) {
       if (err) { return res.status(422).send({errors: normalizeErrors(err.errors)})};
 
-      return res.status(200).send(foundRental);
+      return res.status(200).send(foundVenue);
     });
   });
 });
 
 router.delete("/:id", Auth.authMiddleware, function(req, res) {
 
-  Rental.deleteOne({_id: req.params.id})
+  Venue.deleteOne({_id: req.params.id})
     .where({reservations: {$size: 0}})
-    .exec(function(err, rental) {
+    .exec(function(err, venue) {
       if (err) { return res.status(422).send({errors: normalizeErrors(err.errors) });}
-      if (rental.n == 0) {
-        return res.status(422).send({errors: [{title: 'Has Reservations', detail: "Cannot delete rental with active reservations. Please contact support for more info"}] });
+      if (venue.n == 0) {
+        return res.status(422).send({errors: [{title: 'Has reservations', detail: "Cannot delete venue with active reservations. Please contact support for more info"}] });
       }
 
       return res.status(200).send({success: "ok"});
@@ -93,11 +96,11 @@ router.delete("/:id", Auth.authMiddleware, function(req, res) {
 
 
 router.get("/:id", function(req, res) {
-  Rental.findById(req.params.id).
+  Venue.findById(req.params.id).
     populate('user', 'email -_id').
     populate('reservations', 'startAt endAt -_id').
-    exec(function(err, foundRental) {
-      res.json(foundRental);
+    exec(function(err, foundVenue) {
+      res.json(foundVenue);
   });
 });
 

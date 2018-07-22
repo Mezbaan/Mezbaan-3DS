@@ -2,7 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Rental } from '../../rental/shared/rental.model';
 import { RentalService } from '../../rental/shared/rental.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
